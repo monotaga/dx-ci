@@ -23,7 +23,16 @@
 private class HashUtil_Test {
 
     @isTest
-    static void myUnitTest() {
-        // TO DO: implement unit test
+    static void genHash() {
+        Set<String> args = new Set<String>{'foo','bar','whatevs'};
+        String SHA1Hash = HashUtil.genHash(args);
+        system.assertEquals('E5XMKfmka7kugtimuyTMAiP6o20=', SHA1Hash);
+    }
+
+    @isTest
+    static void genHashSHA256() {
+        Set<String> args = new Set<String>{'foo','bar','whatevs'};
+        String SHA1Hash = HashUtil.genHash(args,'SHA-256');
+        system.assertEquals('qtvd9QtmAhBUMiQCon/EuBz9S9r5fydf3pX91BuJuJY=', SHA1Hash);
     }
 }
