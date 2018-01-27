@@ -1,0 +1,8 @@
+{
+    "orgName": "danshahin Company",
+    "edition": "Developer",
+    "features": ["AuthorApex","DebugApex"],
+    "orgPreferences" : {
+        "enabled": ["S1DesktopEnabled"]
+    }
+}
