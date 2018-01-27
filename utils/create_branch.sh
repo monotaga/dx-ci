@@ -8,11 +8,15 @@ then
     exit
 fi
 
+#create new branch from current branch
 git checkout -b $1;
+
 sfdx force:org:create -s -f config/project-scratch-def.json -a $1;
-sfdx force:org:list
-sfdx force:source:push -u $1;
-# add steps here for pushing data/permsets/users etc
+
+# call setup script for org setup
+./utils/setup_scratch_org.sh $1;
+
 sfdx force:org:open -u $1;
 
+sfdx force:org:list
 

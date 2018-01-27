@@ -9,6 +9,7 @@ fi
 
 git checkout master
 git branch -D $1;
-sfdx force:org:delete -a $1;
+#delete the branch/scratch org with no prompt
+sfdx force:org:delete -p -u $1;
 sfdx force:org:list
 git branch
