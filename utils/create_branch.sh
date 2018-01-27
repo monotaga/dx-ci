@@ -20,3 +20,5 @@ sfdx force:org:open -u $1;
 
 sfdx force:org:list
 
+git branch
+
