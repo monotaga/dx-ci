@@ -1,5 +1,6 @@
 #!/bin/bash
-#use this command when creating a new branch
+# use this command when creating a new branch 
+# from current checked-out branch
 
 if [ $# -lt 1 ]
 then
@@ -9,6 +10,9 @@ fi
 
 git checkout -b $1;
 sfdx force:org:create -s -f config/project-scratch-def.json -a $1;
+sfdx force:org:list
 sfdx force:source:push -u $1;
+# add steps here for pushing data/permsets/users etc
 sfdx force:org:open -u $1;
+
 

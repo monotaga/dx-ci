@@ -10,4 +10,5 @@ fi
 git checkout master
 git branch -D $1;
 sfdx force:org:delete -a $1;
-git status
+sfdx force:org:list
+git branch
