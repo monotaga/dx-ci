@@ -30,9 +30,30 @@ private class HashUtil_Test {
     }
 
     @isTest
+    static void genHashSHA1() {
+        Set<String> args = new Set<String>{'foo','bar','whatevs'};
+        String SHA1Hash = HashUtil.genHash(args,'SHA1');
+        system.assertEquals('E5XMKfmka7kugtimuyTMAiP6o20=', SHA1Hash);
+    }
+
+    @isTest
     static void genHashSHA256() {
         Set<String> args = new Set<String>{'foo','bar','whatevs'};
-        String SHA1Hash = HashUtil.genHash(args,'SHA-256');
-        system.assertEquals('qtvd9QtmAhBUMiQCon/EuBz9S9r5fydf3pX91BuJuJY=', SHA1Hash);
+        String SHA256Hash = HashUtil.genHash(args,'SHA-256');
+        system.assertEquals('qtvd9QtmAhBUMiQCon/EuBz9S9r5fydf3pX91BuJuJY=', SHA256Hash);
+    }
+
+    @isTest
+    static void genHashSHA512() {
+        Set<String> args = new Set<String>{'foo','bar','whatevs'};
+        String SHA512Hash = HashUtil.genHash(args,'SHA-512');
+        system.assertEquals('EZFktUzeh7eNT6DNDmZhz2I4VLieoOLuTO4IS4QiWjEO8yldV0/xUDmAgletKSqFsITcw7q9UWlB+hFNksZvJg==', SHA512Hash);
+    }
+
+    @isTest
+    static void genHashMD5() {
+        Set<String> args = new Set<String>{'foo','bar','whatevs'};
+        String MD5Hash = HashUtil.genHash(args,'MD5');
+        system.assertEquals('ZMipDxMCM3Epc3Dd5xpXRA==', MD5Hash);
     }
 }

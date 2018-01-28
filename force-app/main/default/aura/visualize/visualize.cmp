@@ -2,5 +2,7 @@
     <ltng:require styles="/resource/viz/viz.min.css"
         scripts="/resource/viz/viz.min.js"
         afterScriptsLoaded="{!c.jsLoaded}" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
     <div id="viz">hey now</div>
 </aura:component>	
