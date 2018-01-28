@@ -1,0 +1,6 @@
+<aura:component implements="force:appHostable">
+    <ltng:require styles="/resource/viz/viz.min.css"
+        scripts="/resource/viz/viz.min.js"
+        afterScriptsLoaded="{!c.jsLoaded}" />
+    <div id="viz">hey now</div>
+</aura:component>	
