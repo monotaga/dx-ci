@@ -12,7 +12,7 @@ fi
 sfdx force:source:push;
 
 ## assign any required permission sets
-# sfdx force:user:permset:assign -n Geolocation
+sfdx force:user:permset:assign -n Viz_user
 
 ## import data
 # sfdx force:data:tree:import --sobjecttreefiles data/Account.json;
