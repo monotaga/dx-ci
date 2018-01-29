@@ -11,6 +11,7 @@ fi
 #create new branch from current branch
 git checkout -b $1;
 
+#create a scratch org for this branch
 sfdx force:org:create -s -f config/project-scratch-def.json -a $1;
 
 # call setup script for org setup
