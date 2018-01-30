@@ -19,7 +19,9 @@ jobs:
       - run: 
           command: |
               sfdx force:source:push -u circle_build_$CIRCLE_BUILD_NUM
-              sfdx force:apex:test:run > /tmp/testResults
+              # sfdx force:apex:test:run > /tmp/test_results
+              sfdx force:apex:test:run --resultformat tap --codecoverage -d test_results
+              node utils/parse_test_results.js
           name: "Push Source Code and Run Unit Tests"
       - store_artifacts: 
           destination: testResults
