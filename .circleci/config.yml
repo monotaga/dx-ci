@@ -1,0 +1,42 @@
+version: 2
+jobs: 
+  build: 
+    docker:
+      - image: circleci/node:8.9.4
+    steps: 
+      - checkout
+      - run: 
+          command: |
+              wget -qO- https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz | tar xJf -
+              ./sfdx/install
+          name: "Install SFDX"
+      - run: 
+          command: "sfdx force:auth:jwt:grant --clientid $CONSUMERKEY --jwtkeyfile assets/server.key --username $HUB_USERNAME --setdefaultdevhubusername\n"
+          name: "Authorize DeveloperHub Org"
+      - run: 
+          command: "sfdx force:org:create -f config/project-scratch-def.json --setdefaultusername -a circle_build_$CIRCLE_BUILD_NUM\n"
+          name: "Create Scratch Org"
+      - run: 
+          command: |
+              sfdx force:source:push -u circle_build_$CIRCLE_BUILD_NUM
+              sfdx force:apex:test:run > /tmp/testResults
+          name: "Push Source Code and Run Unit Tests"
+      - store_artifacts: 
+          destination: testResults
+          path: /tmp/testResults
+      - run: 
+          command: "sfdx force:org:delete -u circle_build_$CIRCLE_BUILD_NUM -p\n"
+          name: "Delete Scratch Org"
+      # - run: 
+      #     command: |
+      #         if [[ $CIRCLE_BRANCH == *"dev"* ]];then echo $CIRCLE_BRANCH 
+      #         else 
+      #         eval "sfdx force:auth:jwt:grant --clientid $CONSUMERKEY --jwtkeyfile assets/server.key --username $"${CIRCLE_BRANCH}"_USERNAME -a deploy"
+      #         sfdx force:source:convert -r force-app -d deployDIR
+      #         sfdx force:mdapi:deploy -d deployDIR/ -u deploy -w 2
+      #         fi
+      #     name: "Deploy To Respective Org"
+      # - store_artifacts: 
+      #     destination: /tmp/deployDIR.zip
+      #     path: /tmp/deployDIR.zip
+version: 2
