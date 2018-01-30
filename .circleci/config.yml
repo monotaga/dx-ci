@@ -7,9 +7,8 @@ jobs:
       - checkout
       - run: 
           command: |
-              npm install -g sfdx
-              # wget -qO- https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz | tar xJf -
-              # ./sfdx/install
+              wget -qO- https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz | tar xJf -
+              ./sfdx/install
           name: "Install SFDX"
       - run: 
           command: "sfdx force:auth:jwt:grant --clientid $CONSUMERKEY --jwtkeyfile assets/server.key --username $HUB_USERNAME --setdefaultdevhubusername\n"
