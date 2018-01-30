@@ -19,13 +19,15 @@ jobs:
       - run: 
           command: |
               sfdx force:source:push -u circle_build_$CIRCLE_BUILD_NUM
-              # sfdx force:apex:test:run > /tmp/test_results
+          name: "Push Source Code to Scratch Org"
+      - run:
+          command: |
               sfdx force:apex:test:run --resultformat tap --codecoverage -d test_results
               node utils/parse_test_results.js
-          name: "Push Source Code and Run Unit Tests"
+          name: "Run Unit Tests in Scratch Org"
       - store_artifacts: 
-          destination: testResults
-          path: /tmp/testResults
+          destination: test_results
+          path: /tmp/test_results
       - run: 
           command: "sfdx force:org:delete -u circle_build_$CIRCLE_BUILD_NUM -p\n"
           name: "Delete Scratch Org"
