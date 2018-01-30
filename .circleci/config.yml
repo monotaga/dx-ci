@@ -27,7 +27,7 @@ jobs:
           name: "Run Unit Tests in Scratch Org"
       - store_artifacts: 
           destination: test_results
-          path: /tmp/test_results/*
+          path: test_results/*
       - run: 
           command: "sfdx force:org:delete -u circle_build_$CIRCLE_BUILD_NUM -p\n"
           name: "Delete Scratch Org"
