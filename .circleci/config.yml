@@ -11,7 +11,10 @@ jobs:
               ./sfdx/install
           name: "Install SFDX"
       - run: 
-          command: "sfdx force:auth:jwt:grant --clientid $CONSUMERKEY --jwtkeyfile assets/server.key --username $HUB_USERNAME --setdefaultdevhubusername\n"
+          command: "openssl aes-256-cbc -k $AES_KEY -in assets/server.key.enc -out assets/server.raw.key -d"
+          name: "Decrypt keyfile"
+      - run: 
+          command: "sfdx force:auth:jwt:grant --clientid $CONSUMERKEY --jwtkeyfile assets/server.raw.key --username $HUB_USERNAME --setdefaultdevhubusername"
           name: "Authorize DeveloperHub Org"
       - run: 
           command: "sfdx force:org:create -f config/project-scratch-def.json --setdefaultusername -a circle_build_$CIRCLE_BUILD_NUM\n"
@@ -25,9 +28,6 @@ jobs:
               sfdx force:apex:test:run --resultformat tap --codecoverage -d test_results
               node utils/parse_test_results.js
           name: "Run Unit Tests in Scratch Org"
-      - store_artifacts: 
-          destination: test_results
-          path: test_results/*
       - run: 
           command: "sfdx force:org:delete -u circle_build_$CIRCLE_BUILD_NUM -p\n"
           name: "Delete Scratch Org"
