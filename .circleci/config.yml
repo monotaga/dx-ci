@@ -11,10 +11,10 @@ jobs:
               ./sfdx/install
           name: "Install SFDX"
       - run: 
-          command: "openssl aes-256-cbc -k $AES_KEY -in assets/server.key.enc -out assets/server.new.key -d"
+          command: "openssl aes-256-cbc -k $AES_KEY -in assets/server.key.enc -out assets/server.raw.key -d"
           name: "Decrypt keyfile"
       - run: 
-          command: "sfdx force:auth:jwt:grant --clientid $CONSUMERKEY --jwtkeyfile assets/server.new.key --username $HUB_USERNAME --setdefaultdevhubusername"
+          command: "sfdx force:auth:jwt:grant --clientid $CONSUMERKEY --jwtkeyfile assets/server.raw.key --username $HUB_USERNAME --setdefaultdevhubusername"
           name: "Authorize DeveloperHub Org"
       - run: 
           command: "sfdx force:org:create -f config/project-scratch-def.json --setdefaultusername -a circle_build_$CIRCLE_BUILD_NUM\n"
