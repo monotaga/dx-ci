@@ -11,7 +11,9 @@ jobs:
               ./sfdx/install
           name: "Install SFDX"
       - run: 
-          command: "sfdx force:auth:jwt:grant --clientid $CONSUMERKEY --jwtkeyfile assets/server.key --username $HUB_USERNAME --setdefaultdevhubusername\n"
+          command: | 
+            echo $SERVERKEY > ./server.key
+            sfdx force:auth:jwt:grant --clientid $CONSUMERKEY --jwtkeyfile ./server.key --username $HUB_USERNAME --setdefaultdevhubusername
           name: "Authorize DeveloperHub Org"
       - run: 
           command: "sfdx force:org:create -f config/project-scratch-def.json --setdefaultusername -a circle_build_$CIRCLE_BUILD_NUM\n"
