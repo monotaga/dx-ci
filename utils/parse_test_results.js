@@ -35,7 +35,5 @@ if (results.summary.outcome === 'Failed') {
 
 } else {
     //everything is ok
-    // var resultsText = fs.readFileSync('test_results/test-result.txt', 'utf8') ;
-    // console.log(resultsText);
     console.log(`All tests pass\nCode Coverage: ${coverage[0].coveredPercent}%\n`);
 }
