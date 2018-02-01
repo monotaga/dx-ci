@@ -8,8 +8,15 @@ then
 fi
 
 git checkout master
+
+#delete the local branch
 git branch -D $1;
-#delete the branch/scratch org with no prompt
+
+#delete the scratch org with no prompt
 sfdx force:org:delete -p -u $1;
+
+#delete the remote branch
+git push origin --delete $1;
+
 sfdx force:org:list
 git branch

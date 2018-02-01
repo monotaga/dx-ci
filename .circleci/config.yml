@@ -24,10 +24,8 @@ jobs:
               sfdx force:source:push -u circle_build_$CIRCLE_BUILD_NUM
           name: "Push Source Code to Scratch Org"
       - run:
-          command: |
-              sfdx force:apex:test:run --resultformat tap --codecoverage -d test_results
-              node utils/parse_test_results.js
-          name: "Run Unit Tests in Scratch Org"
+          command: "node utils/run_tests.js"
+          name: "Run Unit Tests in Scratch Org and parse results"
       - run: 
           command: "rm assets/server.raw.key"
           name: "Delete raw server key"

@@ -23,6 +23,8 @@ sfdx force:org:open -u $1;
 # list all hub and scratch orgs
 sfdx force:org:list
 
+#push branch to github, starting CI build
+git push -u origin $1
 # list branches
 git branch
 
