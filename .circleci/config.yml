@@ -29,6 +29,9 @@ jobs:
               node utils/parse_test_results.js
           name: "Run Unit Tests in Scratch Org"
       - run: 
+          command: "rm assets/server.raw.key"
+          name: "Delete raw server key"
+      - run: 
           command: "sfdx force:org:delete -u circle_build_$CIRCLE_BUILD_NUM -p\n"
           name: "Delete Scratch Org"
       # - run: 
