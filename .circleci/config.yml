@@ -24,7 +24,7 @@ jobs:
               sfdx force:source:push -u circle_build_$CIRCLE_BUILD_NUM
           name: "Push Source Code to Scratch Org"
       - run:
-          command: "utils/run_tests.sh"
+          command: "utils/run_tests.sh circle_build_$CIRCLE_BUILD_NUM"
           name: "Run Unit Tests in Scratch Org and parse results"
       - run: 
           command: "rm assets/server.raw.key"
