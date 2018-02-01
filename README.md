@@ -1,17 +1,16 @@
 # SFDX  App
 
-## Dev, Build and Test
-- sfdx force:auth:web:login -a devhub -d
-- sfdx force:org:create -a dx-ci -f config/project-scratch-def.json
-- sfdx force:config:set defaultusername=dx-ci
-- sfdx force:apex:test:run --resultformat human --codecoverage
+## Create a Feature Branch and Scratch Org
+- `./utils/create_branch.sh branch-name`
 
-## Resources
+##  Run Unit Tests
+- `./utils/run_tests.sh branch-name`
 
+##  Delete a Feature Branch
+- `./utils/delete_branch.sh branch-name`
 
-## Description of Files and Directories
+## Convert to legacy metadata format
+- `./utils/convert_metadata.sh`
 
-
-## Issues
-
-
+## Deploy converted metadata to any aliased org
+- `./utils/deploy.sh alias`
