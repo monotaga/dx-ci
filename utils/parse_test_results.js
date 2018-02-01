@@ -1,14 +1,15 @@
 #!/usr/local/bin/node
-var fs = require('fs'),
-    testRunId ;
 
-if(process.argv.length === 2){
+var fs = require('fs'),
+    testRunId;
+
+if (process.argv.length === 2) {
     //get the latest run test id
-    testRunId  = fs.readFileSync('test_results/test-run-id.txt', 'utf8');
+    testRunId = fs.readFileSync('test_results/test-run-id.txt', 'utf8');
     //parse the latest code coverage file
-    coverage = JSON.parse(fs.readFileSync('test_results/test-result-codecoverage.json', 'utf8') );
-    
-}else{
+    coverage = JSON.parse(fs.readFileSync('test_results/test-result-codecoverage.json', 'utf8'));
+
+} else {
     //use user-provided test run id
     console.log(process.argv[2]);
     testRunId = process.argv[2];
@@ -17,27 +18,22 @@ if(process.argv.length === 2){
 
 var testRunFilename = `test_results/test-result-${testRunId}.json`,
     //parse the latest results file 
-    results = JSON.parse(fs.readFileSync(testRunFilename, 'utf8') )
-    
+    results = JSON.parse(fs.readFileSync(testRunFilename, 'utf8'))
+
 
 console.log(`test run id ${testRunId}`);
 
-if(results.summary.outcome === 'Failed'){
+if (results.summary.outcome === 'Failed') {
     //report all summary info
     console.log(results.summary);
     //show info for each failing test
-    for(var test of results.tests){
-        if(test.Outcome === 'Fail'){
+    for (var test of results.tests) {
+        if (test.Outcome === 'Fail') {
             console.log(`\nFAILURE: ${test.StackTrace} \n ${test.Message}\n`);
         }
     }
 
-}else{
+} else {
     //everything is ok
-    var resultsText = fs.readFileSync('test_results/test-result.txt', 'utf8') ;
-    console.log(resultsText);
-    console.log( `All tests pass\nCode Coverage: ${coverage[0].coveredPercent}%\n`);
+    console.log(`All tests pass\nCode Coverage: ${coverage[0].coveredPercent}%\n`);
 }
-
-
-
