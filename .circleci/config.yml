@@ -14,7 +14,7 @@ jobs:
           command: "openssl aes-256-cbc -k $AES_KEY -in assets/sfdx.url.enc -out assets/sfdx.url -d"
           name: "Decrypt keyfile"
       - run: 
-          command: "force:auth:sfdxurl:store -f assets/sfdx.url --username $HUB_USERNAME --setdefaultdevhubusername"
+          command: "sfdx force:auth:sfdxurl:store -f assets/sfdx.url --username $HUB_USERNAME --setdefaultdevhubusername"
           name: "Authorize DeveloperHub Org"
       - run: 
           command: "sfdx force:org:create -f config/project-scratch-def.json --setdefaultusername -a circle_build_$CIRCLE_BUILD_NUM\n"
