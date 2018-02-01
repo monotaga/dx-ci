@@ -1,4 +1,5 @@
-# SFDX  App
+# dx-ci
+Sample project incorporating SFDX with CircleCI
 
 ## Developer Instructions
 
