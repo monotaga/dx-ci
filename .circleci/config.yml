@@ -19,7 +19,7 @@ jobs:
       - run: 
           command: |
             openssl aes-256-cbc -k $AES_KEY -in assets/dev_sfdx.url.enc -out assets/dev_sfdx.url -d
-            sfdx force:auth:sfdxurl:store -f assets/dev_sfdx.url -a dev_org
+            sfdx force:auth:sfdxurl:store -f assets/dev_sfdx.url -a deploy_org
           name: "Decrypt keyfile"
       - run: 
           command: "sfdx force:org:create -f config/project-scratch-def.json --setdefaultusername -a circle_build_$CIRCLE_BUILD_NUM\n"
@@ -34,7 +34,7 @@ jobs:
           command: "sfdx force:source:convert -r force-app/main/default/ -d deploy"
           name: "Convert metadata"
       - run:
-          command: "utils/deploy.sh dev_org"
+          command: "utils/deploy.sh deploy_org"
           name: "Deploy metadata"
       - run: 
           command: |
