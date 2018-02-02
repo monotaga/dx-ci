@@ -9,4 +9,4 @@ then
 fi
 
 # select Accounts with associated Contacts and Opportunities
-sfdx force:data:tree:export -q "SELECT Name, (Select Id, FirstName, LastName FROM Contacts), (SELECT Id, Name, Amount, StageName, CloseDate FROM Opportunities) FROM Account WHERE Name != NULL" -d ./data -u $1
+sfdx force:data:tree:export -q "SELECT Name, (Select Id, FirstName, LastName, Title FROM Contacts), (SELECT Id, Name, Amount, StageName, CloseDate FROM Opportunities) FROM Account WHERE Name != NULL" -d ./data -u $1
