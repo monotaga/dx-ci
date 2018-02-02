@@ -35,6 +35,8 @@ jobs:
       - run: 
           command: "sfdx force:org:delete -u circle_build_$CIRCLE_BUILD_NUM -p\n"
           name: "Delete Scratch Org"
+      - store_test_results:
+          path: test_results
       - run: 
           command: |
               if [[ $CIRCLE_BRANCH != "master" ]];then echo $CIRCLE_BRANCH 
