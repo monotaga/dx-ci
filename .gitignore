@@ -1,5 +1,4 @@
 .sfdx
 test_results
 deploy
-server.raw.key
 sfdx.url
