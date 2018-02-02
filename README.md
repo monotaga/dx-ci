@@ -1,5 +1,5 @@
 # dx-ci
-![alt text](https://circleci.com/gh/CodeScience/dx-ci.svg?style=shield&circle-token=:circle-token "Logo Title Text 1")
+![alt text](https://circleci.com/gh/CodeScience/dx-ci.svg?style=shield&circle-token=:circle-token "CircleCI")
 
 
 Sample project incorporating SFDX with CircleCI
