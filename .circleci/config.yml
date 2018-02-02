@@ -17,6 +17,11 @@ jobs:
           command: "sfdx force:auth:sfdxurl:store -f assets/sfdx.url -a circle_build_$CIRCLE_BUILD_NUM --setdefaultdevhubusername"
           name: "Authorize DeveloperHub Org"
       - run: 
+          command: |
+            openssl aes-256-cbc -k $AES_KEY -in assets/dev_sfdx.url.enc -out assets/dev_sfdx.url -d
+            sfdx force:auth:sfdxurl:store -f assets/dev_sfdx.url -a dev_org
+          name: "Decrypt keyfile"
+      - run: 
           command: "sfdx force:org:create -f config/project-scratch-def.json --setdefaultusername -a circle_build_$CIRCLE_BUILD_NUM\n"
           name: "Create Scratch Org"
       - run: 
@@ -25,21 +30,28 @@ jobs:
       - run:
           command: "utils/run_tests.sh circle_build_$CIRCLE_BUILD_NUM"
           name: "Run Unit Tests in Scratch Org and parse results"
+      - run:
+          command: "sfdx force:source:convert -r force-app/main/default/ -d deploy"
+          name: "Convert metadata"
+      - run:
+          command: "utils/deploy.sh dev_org"
+          name: "Deploy metadata"
       - run: 
-          command: "rm assets/sfdx.url"
-          name: "Delete sfdx.url"
+          command: |
+                rm assets/*sfdx.url
+          name: "Delete sfdx.urls"
       - run: 
           command: "sfdx force:org:delete -u circle_build_$CIRCLE_BUILD_NUM -p\n"
           name: "Delete Scratch Org"
-      # - run: 
-      #     command: |
-      #         if [[ $CIRCLE_BRANCH == *"dev"* ]];then echo $CIRCLE_BRANCH 
-      #         else 
-      #         eval "sfdx force:auth:jwt:grant --clientid $CONSUMERKEY --jwtkeyfile assets/server.key --username $"${CIRCLE_BRANCH}"_USERNAME -a deploy"
-      #         sfdx force:source:convert -r force-app -d deployDIR
-      #         sfdx force:mdapi:deploy -d deployDIR/ -u deploy -w 2
-      #         fi
-      #     name: "Deploy To Respective Org"
+      - run: 
+          command: |
+              if [[ $CIRCLE_BRANCH == "master" ]];then echo $CIRCLE_BRANCH 
+              else 
+              eval "sfdx force:auth:jwt:grant --clientid $CONSUMERKEY --jwtkeyfile assets/server.key --username $"${CIRCLE_BRANCH}"_USERNAME -a deploy"
+              sfdx force:source:convert -r force-app -d deployDIR
+              sfdx force:mdapi:deploy -d deployDIR/ -u deploy -w 2
+              fi
+          name: "Deploy To Respective Org"
       # - store_artifacts: 
       #     destination: /tmp/deployDIR.zip
       #     path: /tmp/deployDIR.zip

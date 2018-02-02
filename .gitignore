@@ -1,4 +1,5 @@
 .sfdx
 test_results
 deploy
-sfdx.url
+*sfdx.url
+
