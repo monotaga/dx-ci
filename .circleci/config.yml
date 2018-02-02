@@ -21,7 +21,7 @@ jobs:
           name: "Create Scratch Org"
       - run: 
           command: "utils/setup_scratch_org.sh circle_build_$CIRCLE_BUILD_NUM"
-          name: "Push Setup Scratch Org"
+          name: "Setup Scratch Org Details"
       - run:
           command: "utils/run_tests.sh circle_build_$CIRCLE_BUILD_NUM"
           name: "Run Unit Tests in Scratch Org and parse results"
