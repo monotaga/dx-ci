@@ -25,7 +25,7 @@ jobs:
       - run:
           command: |
             utils/run_tests.sh circle_build_$CIRCLE_BUILD_NUM
-            utils/parse_test_results.sh >> test_results/test-result.txt
+            utils/parse_test_results.js >> test_results/test-result.txt
           name: "Run Unit Tests in Scratch Org and parse results"
       - store_artifacts: 
           destination: test-result.txt
