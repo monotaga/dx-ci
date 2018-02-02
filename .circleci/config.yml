@@ -25,6 +25,9 @@ jobs:
       - run:
           command: "utils/run_tests.sh circle_build_$CIRCLE_BUILD_NUM"
           name: "Run Unit Tests in Scratch Org and parse results"
+      - store_artifacts: 
+          destination: /tmp/test-result.txt
+          path: /test_results/test-result.txt
       - run: 
           command: |
                 rm assets/*sfdx.url
@@ -46,7 +49,4 @@ jobs:
               utils/deploy.sh deploy_org
               fi
           name: "Deploy To Respective Org"
-      # - store_artifacts: 
-      #     destination: /tmp/deployDIR.zip
-      #     path: /tmp/deployDIR.zip
 version: 2
