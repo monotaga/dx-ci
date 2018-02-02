@@ -43,16 +43,4 @@ jobs:
       - run: 
           command: "sfdx force:org:delete -u circle_build_$CIRCLE_BUILD_NUM -p\n"
           name: "Delete Scratch Org"
-      - run: 
-          command: |
-              if [[ $CIRCLE_BRANCH == "master" ]];then echo $CIRCLE_BRANCH 
-              else 
-              eval "sfdx force:auth:jwt:grant --clientid $CONSUMERKEY --jwtkeyfile assets/server.key --username $"${CIRCLE_BRANCH}"_USERNAME -a deploy"
-              sfdx force:source:convert -r force-app -d deployDIR
-              sfdx force:mdapi:deploy -d deployDIR/ -u deploy -w 2
-              fi
-          name: "Deploy To Respective Org"
-      # - store_artifacts: 
-      #     destination: /tmp/deployDIR.zip
-      #     path: /tmp/deployDIR.zip
 version: 2
