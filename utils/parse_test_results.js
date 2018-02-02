@@ -1,5 +1,7 @@
 #!/usr/local/bin/node
 
+/* eslint-env es6 */
+
 var fs = require('fs'),
     testRunId;
 

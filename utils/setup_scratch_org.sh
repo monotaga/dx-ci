@@ -15,5 +15,6 @@ sfdx force:source:push;
 sfdx force:user:permset:assign -n Viz_user
 
 ## import data
+./utils/push_data.sh $1
 # sfdx force:data:tree:import --sobjecttreefiles data/Account.json;
 

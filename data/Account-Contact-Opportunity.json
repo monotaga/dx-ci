@@ -1,0 +1,62 @@
+{
+    "records": [
+        {
+            "attributes": {
+                "type": "Account",
+                "referenceId": "AccountRef1"
+            },
+            "Name": "Hijinx Comics",
+            "Contacts": {
+                "records": []
+            },
+            "Opportunities": {
+                "records": []
+            }
+        },
+        {
+            "attributes": {
+                "type": "Account",
+                "referenceId": "AccountRef2"
+            },
+            "Name": "Foobar Inc",
+            "Contacts": {
+                "records": []
+            },
+            "Opportunities": {
+                "records": []
+            }
+        },
+        {
+            "attributes": {
+                "type": "Account",
+                "referenceId": "AccountRef3"
+            },
+            "Name": "Ace Tomato Company",
+            "Contacts": {
+                "records": [
+                    {
+                        "attributes": {
+                            "type": "Contact",
+                            "referenceId": "ContactRef1"
+                        },
+                        "FirstName": "Dan",
+                        "LastName": "Shahin"
+                    }
+                ]
+            },
+            "Opportunities": {
+                "records": [
+                    {
+                        "attributes": {
+                            "type": "Opportunity",
+                            "referenceId": "OpportunityRef1"
+                        },
+                        "Name": "Wet Work",
+                        "StageName": "Needs Analysis",
+                        "CloseDate": "2018-02-28"
+                    }
+                ]
+            }
+        }
+    ]
+}
