@@ -11,10 +11,10 @@ jobs:
               ./sfdx/install
           name: "Install SFDX"
       - run: 
-          command: "echo $SFDXURL_HUB > assets/sfdx.url"
+          command: "echo $SFDXURL_HUB > /tmp/sfdx.url"
           name: "Create temp sfdxurl file"
       - run: 
-          command: "sfdx force:auth:sfdxurl:store -f assets/sfdx.url -a circle_build_$CIRCLE_BUILD_NUM --setdefaultdevhubusername"
+          command: "sfdx force:auth:sfdxurl:store -f /tmp/sfdx.url -a circle_build_$CIRCLE_BUILD_NUM --setdefaultdevhubusername"
           name: "Authorize DeveloperHub Org"
       - run: 
           command: "sfdx force:org:create -f config/project-scratch-def.json --setdefaultusername -a circle_build_$CIRCLE_BUILD_NUM\n"
@@ -42,15 +42,15 @@ jobs:
               #convert to legacy metadata format
               sfdx force:source:convert -r force-app/main/default/ -d deploy
               #echo sfdxurl from env to temp file
-              echo $SFDXURL_DEPLOY > assets/deploy_sfdx.url
+              echo $SFDXURL_DEPLOY > /tmp/deploy_sfdx.url
               #authenticate to deployment org
-              sfdx force:auth:sfdxurl:store -f assets/deploy_sfdx.url -a deploy_org
+              sfdx force:auth:sfdxurl:store -f /tmp/deploy_sfdx.url -a deploy_org
               #deploy metadata
               utils/deploy.sh deploy_org
               fi
           name: "Deploy To Respective Org"
       - run: 
           command: |
-                rm assets/sfdx.url
+                rm /tmp/*sfdx.url
           name: "Delete temp sfdx.urls"
 version: 2
