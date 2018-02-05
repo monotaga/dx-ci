@@ -48,7 +48,7 @@ jobs:
               #deploy metadata
               utils/deploy.sh deploy_org
               fi
-          name: "Deploy To Respective Org"
+          name: "Deploy To Packaging Org"
       - run: 
           command: |
                 rm /tmp/*sfdx.url
