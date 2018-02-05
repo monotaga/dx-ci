@@ -11,7 +11,7 @@ jobs:
               ./sfdx/install
           name: "Install SFDX"
       - run: 
-          command: "openssl aes-256-cbc -k $AES_KEY -in assets/sfdx.url.enc -out assets/sfdx.url -d"
+          command: "echo $SFDXURL_HUB > assets/sfdx.url"
           name: "Decrypt keyfile"
       - run: 
           command: "sfdx force:auth:sfdxurl:store -f assets/sfdx.url -a circle_build_$CIRCLE_BUILD_NUM --setdefaultdevhubusername"
