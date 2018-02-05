@@ -12,7 +12,7 @@ jobs:
           name: "Install SFDX"
       - run: 
           command: "echo $SFDXURL_HUB > assets/sfdx.url"
-          name: "Decrypt keyfile"
+          name: "Create temp sfdxurl file"
       - run: 
           command: "sfdx force:auth:sfdxurl:store -f assets/sfdx.url -a circle_build_$CIRCLE_BUILD_NUM --setdefaultdevhubusername"
           name: "Authorize DeveloperHub Org"
@@ -31,10 +31,6 @@ jobs:
           destination: test-result.txt
           path: test_results/test-result.txt
       - run: 
-          command: |
-                rm assets/*sfdx.url
-          name: "Delete sfdx.urls"
-      - run: 
           command: "sfdx force:org:delete -u circle_build_$CIRCLE_BUILD_NUM -p\n"
           name: "Delete Scratch Org"
       - store_test_results:
@@ -45,12 +41,16 @@ jobs:
               else 
               #convert to legacy metadata format
               sfdx force:source:convert -r force-app/main/default/ -d deploy
-              #decrypt our sfdxurl for deployment org
-              openssl aes-256-cbc -k $AES_KEY -in assets/dev_sfdx.url.enc -out assets/dev_sfdx.url -d
+              #echo sfdxurl from env to temp file
+              echo $SFDXURL_DEPLOY > assets/deploy_sfdx.url
               #authenticate to deployment org
-              sfdx force:auth:sfdxurl:store -f assets/dev_sfdx.url -a deploy_org
+              sfdx force:auth:sfdxurl:store -f assets/deploy_sfdx.url -a deploy_org
               #deploy metadata
               utils/deploy.sh deploy_org
               fi
           name: "Deploy To Respective Org"
+      - run: 
+          command: |
+                rm assets/sfdx.url
+          name: "Delete temp sfdx.urls"
 version: 2
